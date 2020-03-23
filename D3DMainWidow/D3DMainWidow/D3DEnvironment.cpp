@@ -218,6 +218,9 @@ void D3DEnvironment::addVisualObject(AbstractVisualObjectPtr object, bool needIn
 		Context con;
 		con.g_pd3dDevice = g_pd3dDevice;
 		con.g_pImmediateContext = g_pImmediateContext;
+		con.width = m_width;
+		con.height= m_height;
+		object->setDeviceAndContext(g_pd3dDevice, g_pImmediateContext);
 		object->inits(con);
 	}
 	m_VisualObjects.push_back(object);

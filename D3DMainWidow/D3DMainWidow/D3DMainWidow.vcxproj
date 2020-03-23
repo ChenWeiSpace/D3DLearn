@@ -93,9 +93,11 @@
   <ItemGroup>
     <ClCompile Include="AbstractVisualObject.cpp" />
     <ClCompile Include="cube\CubeObject.cpp" />
+    <ClCompile Include="D3DCamera.cpp" />
     <ClCompile Include="D3DEnvironment.cpp" />
     <ClCompile Include="D3DMainWidow.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Triangle\TriangleObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="D3DMainWidow.h" />
@@ -109,7 +111,14 @@
   <ItemGroup>
     <ClInclude Include="AbstractVisualObject.h" />
     <ClInclude Include="cube\CubeObject.h" />
+    <ClInclude Include="D3DCamera.h" />
     <ClInclude Include="D3DEnvironment.h" />
+    <ClInclude Include="Triangle\TriangleObject.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Triangle\Tutorial02.fx">
+      <FileType>Document</FileType>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

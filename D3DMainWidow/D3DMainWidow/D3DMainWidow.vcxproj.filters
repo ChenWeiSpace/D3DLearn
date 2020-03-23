@@ -26,6 +26,9 @@
     <Filter Include="Cube">
       <UniqueIdentifier>{2b7643f7-76a6-462a-90bf-a68404b4e146}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Triangle">
+      <UniqueIdentifier>{c38d0b64-f1fc-4590-8169-715a3a90f14c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -42,6 +45,12 @@
     </ClCompile>
     <ClCompile Include="cube\CubeObject.cpp">
       <Filter>Cube</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangle\TriangleObject.cpp">
+      <Filter>Triangle</Filter>
+    </ClCompile>
+    <ClCompile Include="D3DCamera.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -69,5 +78,16 @@
     <ClInclude Include="cube\CubeObject.h">
       <Filter>Cube</Filter>
     </ClInclude>
+    <ClInclude Include="Triangle\TriangleObject.h">
+      <Filter>Triangle</Filter>
+    </ClInclude>
+    <ClInclude Include="D3DCamera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Triangle\Tutorial02.fx">
+      <Filter>Triangle</Filter>
+    </None>
   </ItemGroup>
 </Project>
