@@ -17,7 +17,7 @@ void D3DMainWidow::init()
 	int height = ui.centralWidget->height();
 	WId id = ui.centralWidget->winId();
 	event->buildDevice(id,width,height);
-	event->addVisualObject(std::make_shared<TriangleObject>());
+	//event->addVisualObject(std::make_shared<TriangleObject>());
 	this->startTimer(10);
 	s_event = event;
 	m_time.start();

@@ -13,91 +13,84 @@ D3DEnvironment::D3DEnvironment()
 D3DEnvironment::~D3DEnvironment()
 {
 }
+#define sizeofarray(a)	(sizeof(a)/sizeof(a[0]))
 
 void D3DEnvironment::buildDevice(int wHid, int width, int height)
 {
 
-	HWND                    g_hWnd = (HWND)wHid;
-	D3D_DRIVER_TYPE         g_driverType = D3D_DRIVER_TYPE_NULL;
-	D3D_FEATURE_LEVEL       g_featureLevel = D3D_FEATURE_LEVEL_11_0;
-// 	ID3D11Device*           g_pd3dDevice = NULL;
-// 	ID3D11DeviceContext*    g_pImmediateContext = NULL;
-// 	IDXGISwapChain*         g_pSwapChain = NULL;
-//  ID3D11RenderTargetView* g_pRenderTargetView = NULL;
-//	ID3D11VertexShader*     g_pVertexShader = NULL;
-// 	ID3D11PixelShader*      g_pPixelShader = NULL;
-// 	ID3D11InputLayout*      g_pVertexLayout = NULL;
-// 	ID3D11Buffer*           g_pVertexBuffer = NULL;
-// 	ID3D11Buffer*           g_pIndexBuffer = NULL;
-// 	ID3D11Buffer*           g_pConstantBuffer = NULL;
-// 	XMMATRIX                g_World;
-// 	XMMATRIX                g_View;
-// 	XMMATRIX                g_Projection;
-	ID3D11Texture2D* pBackBuffer = NULL;
-
-	UINT createDeviceFlags = 0;
-#ifdef _DEBUG
-	createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
-#endif
-
-	D3D_DRIVER_TYPE driverTypes[] =
-	{
-		D3D_DRIVER_TYPE_HARDWARE,
-		D3D_DRIVER_TYPE_WARP,
-		D3D_DRIVER_TYPE_REFERENCE,
-	};
-	UINT numDriverTypes = ARRAYSIZE(driverTypes);
-
+	ID3D11Device* device = 0;
+	ID3D11DeviceContext* immediateContext = 0;
+	IDXGISwapChain* swapChain = 0;
+	ID3D11Texture2D* backBuffer = 0;
+	ID3D11Texture2D* depthStencilBuffer = 0;
+	ID3D11RenderTargetView* renderTargetView = 0;
+	ID3D11DepthStencilView* depthStencilView = 0;
 	D3D_FEATURE_LEVEL featureLevels[] =
 	{
 		D3D_FEATURE_LEVEL_11_0,
 		D3D_FEATURE_LEVEL_10_1,
 		D3D_FEATURE_LEVEL_10_0,
+		D3D_FEATURE_LEVEL_9_3,
 	};
-	UINT numFeatureLevels = ARRAYSIZE(featureLevels);
+	D3D_FEATURE_LEVEL featureLevel;
 
+
+	//IDXGIFactory1 *pDXGIFactory(NULL);
+	//HRESULT hRes = CreateDXGIFactory(__uuidof(IDXGIFactory), (void**)&pDXGIFactory);
+
+	//if(hRes != S_OK || pDXGIFactory == NULL)
+	//	return 0 ;
+
+	// Search for a PerfHUD adapter.  
+	UINT nAdapter = 0;
+	IDXGIAdapter* adapter = NULL;
+	IDXGIAdapter* selectedAdapter = NULL;
+	D3D_DRIVER_TYPE driverType = D3D_DRIVER_TYPE_HARDWARE;
 
 	DXGI_SWAP_CHAIN_DESC sd;
 	ZeroMemory(&sd, sizeof(sd));
-	sd.BufferCount = 1;
 	sd.BufferDesc.Width = width;
 	sd.BufferDesc.Height = height;
 	sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 	sd.BufferDesc.RefreshRate.Numerator = 60;
 	sd.BufferDesc.RefreshRate.Denominator = 1;
-	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-	sd.OutputWindow = g_hWnd;
-	sd.SampleDesc.Count = 1;
+	sd.SampleDesc.Count = 4;
 	sd.SampleDesc.Quality = 0;
-	sd.Windowed = TRUE;
+	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT | DXGI_USAGE_SHADER_INPUT;
+	sd.BufferCount = 1;
+	sd.OutputWindow = (HWND)wHid;
+	sd.Windowed =  TRUE;
 	sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 
-	HRESULT hr = S_FALSE;
-
-	for (UINT driverTypeIndex = 0; driverTypeIndex < numDriverTypes; driverTypeIndex++)
+	UINT deviceFlag = 0;// D3D11_CREATE_DEVICE_BGRA_SUPPORT;
+//#ifdef _DEBUG
+//	deviceFlag |= D3D11_CREATE_DEVICE_DEBUG;
+//#endif
+	HRESULT hr = D3D11CreateDeviceAndSwapChain(selectedAdapter, driverType,
+		0, deviceFlag, featureLevels, sizeofarray(featureLevels),
+		D3D11_SDK_VERSION, &sd,
+		&swapChain, &device, &featureLevel, &immediateContext);
+	if (FAILED(hr))
 	{
-		g_driverType = driverTypes[driverTypeIndex];
-		hr = D3D11CreateDeviceAndSwapChain(NULL, g_driverType, NULL, createDeviceFlags, featureLevels, numFeatureLevels,
-			D3D11_SDK_VERSION, &sd, &g_pSwapChain, &g_pd3dDevice, &g_featureLevel, &g_pImmediateContext);
-		if (SUCCEEDED(hr))
-			break;
+		return;
 	}
-	if (FAILED(hr))
-		return;
+	g_pSwapChain = swapChain;
 
-	// Create a render target view
-	//ID3D11Texture2D* pBackBuffer = NULL;
-	hr = g_pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer);
+	ID3D11Texture2D* pBackBuffer = 0;
+	 hr = g_pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer);
 	if (FAILED(hr))
 		return;
+	g_pd3dDevice = device;
 
 	hr = g_pd3dDevice->CreateRenderTargetView(pBackBuffer, NULL, &g_pRenderTargetView);
 	pBackBuffer->Release();
 	if (FAILED(hr))
 		return;
 
+	g_pImmediateContext = immediateContext;
 
 	g_pImmediateContext->OMSetRenderTargets(1, &g_pRenderTargetView, NULL);
+	g_pRenderTargetView->Release();
 
 	// Setup the viewport
 	D3D11_VIEWPORT vp;
@@ -136,7 +129,7 @@ void D3DEnvironment::frameMove(std::uint64_t frameNumber, std::uint64_t elapsed)
 	{
 		visula->frameMove(frameNumber, elapsed);
 	}
-	g_pSwapChain->Present(0, 0);
+	g_pSwapChain->Present(1, 0);
 }
 
 void D3DEnvironment::resize(int width, int height)
