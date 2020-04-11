@@ -6,6 +6,7 @@
 #include <xnamath.h>
 struct ID3D11Device;
 struct ID3D11DeviceContext;
+typedef std::shared_ptr<class D3DCamera> D3DCameraPtr;
 
 struct Context
 {
@@ -25,9 +26,11 @@ public:
 	virtual void inits(Context & con) = 0;
 	virtual void frameMove(std::uint64_t frameNumber, std::uint64_t elapsed) = 0;
 	void setDeviceAndContext(ID3D11Device*           device, ID3D11DeviceContext*    context);
-public:
+	void setCamera(D3DCameraPtr camera);
+protected:
 	ID3D11Device*           g_pd3dDevice{ NULL };
 	ID3D11DeviceContext*    g_pImmediateContext{ NULL };
+	D3DCameraPtr m_camera;
 };
 typedef std::shared_ptr<AbstractVisualObject> AbstractVisualObjectPtr;
 #endif // AbstractVisualObject_h__

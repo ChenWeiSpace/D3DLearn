@@ -13,7 +13,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{743184CC-F335-4035-83BC-DCCA3FE52721}</ProjectGuid>
     <Keyword>QtVS_v302</Keyword>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
     <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -96,6 +96,7 @@
     <ClCompile Include="D3DCamera.cpp" />
     <ClCompile Include="D3DEnvironment.cpp" />
     <ClCompile Include="D3DMainWidow.cpp" />
+    <ClCompile Include="HyacinthUntity.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Triangle\TriangleObject.cpp" />
   </ItemGroup>
@@ -113,10 +114,16 @@
     <ClInclude Include="cube\CubeObject.h" />
     <ClInclude Include="D3DCamera.h" />
     <ClInclude Include="D3DEnvironment.h" />
+    <ClInclude Include="HyacinthUntity.h" />
     <ClInclude Include="Triangle\TriangleObject.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Triangle\Tutorial02.fx">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cube\Tutorial06.fx">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>

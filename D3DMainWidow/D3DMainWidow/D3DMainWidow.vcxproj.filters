@@ -52,6 +52,9 @@
     <ClCompile Include="D3DCamera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="HyacinthUntity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="D3DMainWidow.h">
@@ -84,10 +87,16 @@
     <ClInclude Include="D3DCamera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="HyacinthUntity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Triangle\Tutorial02.fx">
       <Filter>Triangle</Filter>
+    </None>
+    <None Include="cube\Tutorial06.fx">
+      <Filter>Cube</Filter>
     </None>
   </ItemGroup>
 </Project>

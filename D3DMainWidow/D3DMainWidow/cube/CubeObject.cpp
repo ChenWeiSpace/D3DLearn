@@ -3,6 +3,7 @@
 #include <d3dx11.h>
 #include <d3dcompiler.h>
 #include <xnamath.h>
+#include "../D3DCamera.h"
 
 struct SimpleVertex
 {
@@ -81,7 +82,9 @@ void CubeObject::frameMove(std::uint64_t frameNumber, std::uint64_t elapsed)
 	//
 	ConstantBuffer cb1;
 	cb1.mWorld = XMMatrixTranspose(g_World);
+	g_View = *(XMMATRIX*)&(m_camera->getViewMatrix());;
 	cb1.mView = XMMatrixTranspose(g_View);
+	g_Projection = *(XMMATRIX*)&(m_camera->getProjectionMatrix());
 	cb1.mProjection = XMMatrixTranspose(g_Projection);
 	cb1.vLightDir[0] = vLightDirs[0];
 	cb1.vLightDir[1] = vLightDirs[1];

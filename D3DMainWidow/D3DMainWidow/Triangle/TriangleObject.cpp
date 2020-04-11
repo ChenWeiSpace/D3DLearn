@@ -72,9 +72,9 @@ void TriangleObject::inits(Context & con)
 	// Create vertex buffer
 	SimpleVertex vertices[] =
 	{
-		XMFLOAT3(0.0f, 0.5f, 0.5f),
-		XMFLOAT3(0.5f, -0.5f, 0.5f),
-		XMFLOAT3(-0.5f, -0.5f, 0.5f),
+		XMFLOAT3(0.0f, 0.5f,   0.9f),
+		XMFLOAT3(0.5f, -0.5f,  0.9f),
+		XMFLOAT3(-0.5f, -0.5f, 0.9f),
 	};
 	D3D11_BUFFER_DESC bd;
 	ZeroMemory(&bd, sizeof(bd));

@@ -18,7 +18,7 @@ cbuffer ConstantBuffer : register(b0)
 
 float4 VS( float4 Pos : POSITION ) : SV_POSITION
 {
-    return Pos;
+    return float4(Pos.xyz,1);
 }
 
 

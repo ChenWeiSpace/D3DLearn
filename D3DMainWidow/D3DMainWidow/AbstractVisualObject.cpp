@@ -44,3 +44,8 @@ void AbstractVisualObject::setDeviceAndContext(ID3D11Device* device, ID3D11Devic
 	g_pd3dDevice = device;
 	g_pImmediateContext = context;
 }
+
+void AbstractVisualObject::setCamera(D3DCameraPtr camera)
+{
+	m_camera = camera;
+}

@@ -7,7 +7,27 @@ struct ID3D11Device;
 struct ID3D11DeviceContext;
 struct IDXGISwapChain;
 struct ID3D11RenderTargetView;
+struct ID3D11DepthStencilView;
 typedef std::shared_ptr<class AbstractVisualObject> AbstractVisualObjectPtr;
+typedef std::shared_ptr<class D3DCamera> D3DCameraPtr;
+
+template<typename T>
+inline void SafeRelease(T* p)
+{
+	if (0 != p)
+	{
+		p->Release();
+	}
+}
+
+template<typename T>
+inline void SafeAddRef(T* p)
+{
+	if (0 != p)
+	{
+		p->AddRef();
+	}
+}
 
 class D3DEnvironment : public std::enable_shared_from_this<D3DEnvironment>
 {
@@ -27,8 +47,10 @@ private:
 	ID3D11DeviceContext*    g_pImmediateContext { NULL};
 	IDXGISwapChain*         g_pSwapChain { NULL};
 	ID3D11RenderTargetView* g_pRenderTargetView { NULL};
+	ID3D11DepthStencilView* g_pDepthStencilView = {NULL};
 
 	std::vector<AbstractVisualObjectPtr> m_VisualObjects;
+	D3DCameraPtr m_camera;
 };
 typedef std::shared_ptr<D3DEnvironment> D3DEnvironmentPtr;
 #endif // D3DEnvironment_h__
