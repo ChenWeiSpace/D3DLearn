@@ -105,7 +105,7 @@ void CubeObject::frameMove(std::uint64_t frameNumber, std::uint64_t elapsed)
 	//
 	// Render each light
 	//
-	for (int m = 0; m < 2; m++)
+	for (int m = 1; m < 2; m++)
 	{
 		XMMATRIX mLight = XMMatrixTranslationFromVector(5.0f * XMLoadFloat4(&vLightDirs[m]));
 		XMMATRIX mLightScale = XMMatrixScaling(0.2f, 0.2f, 0.2f);

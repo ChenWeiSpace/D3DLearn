@@ -25,7 +25,7 @@ public:
 	EulerAngle getRotation();
 
 private:
-	void setProject(int width, int height);
+	void setCameraParam(int width, int height,float zn = 0.01f,float zf = 100.0f);
 	void updateMatrix();
 	void updateProjectMatrix();
 	void updateViewProjectMatrix();
@@ -39,6 +39,8 @@ private:
 	EulerAngle m_rotation;
 	int m_width{ 0 };
 	int m_height{ 0 };
+	float m_zn{ 0.1f };
+	float m_zf{ 100.0f };
 };
 typedef std::shared_ptr<D3DCamera> D3DCameraPtr;
 #endif // D3DCamera_h__

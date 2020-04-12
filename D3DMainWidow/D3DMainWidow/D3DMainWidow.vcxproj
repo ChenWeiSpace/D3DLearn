@@ -96,6 +96,7 @@
     <ClCompile Include="D3DCamera.cpp" />
     <ClCompile Include="D3DEnvironment.cpp" />
     <ClCompile Include="D3DMainWidow.cpp" />
+    <ClCompile Include="D3DViewWidget.cpp" />
     <ClCompile Include="HyacinthUntity.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Triangle\TriangleObject.cpp" />
@@ -114,6 +115,7 @@
     <ClInclude Include="cube\CubeObject.h" />
     <ClInclude Include="D3DCamera.h" />
     <ClInclude Include="D3DEnvironment.h" />
+    <QtMoc Include="D3DViewWidget.h" />
     <ClInclude Include="HyacinthUntity.h" />
     <ClInclude Include="Triangle\TriangleObject.h" />
   </ItemGroup>

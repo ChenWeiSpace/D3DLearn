@@ -55,9 +55,15 @@
     <ClCompile Include="HyacinthUntity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="D3DViewWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="D3DMainWidow.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="D3DViewWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

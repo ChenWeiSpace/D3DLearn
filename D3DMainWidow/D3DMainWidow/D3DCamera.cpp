@@ -17,12 +17,14 @@ D3DCamera::~D3DCamera()
 {
 }
 
-void D3DCamera::setProject(int width, int height)
+void D3DCamera::setCameraParam(int width, int height, float zn /*= 0.01f*/, float zf /*= 100.0f*/)
 {
-	if ( width!= m_width || height != m_height )
+	if ( width!= m_width || height != m_height || m_zn != zn || m_zf != zf)
 	{
 		m_width = width;
 		m_height = height;
+		m_zn = zn;
+		m_zf = zf;
 		updateProjectMatrix();
 		updateViewProjectMatrix();
 	}
@@ -55,7 +57,7 @@ EulerAngle D3DCamera::getRotation()
 void D3DCamera::updateMatrix()
 {
 	D3DXMATRIX mCameraRot;
-	D3DXMatrixRotationYawPitchRoll(&mCameraRot, m_rotation.heading, m_rotation.pitch, m_rotation.roll);
+	D3DXMatrixRotationYawPitchRoll(&mCameraRot, D3DXToRadian(m_rotation.heading), D3DXToRadian(m_rotation.pitch), D3DXToRadian(m_rotation.roll));
 
 	D3DXVECTOR3 vWorldUp, vWorldAhead;
 	D3DXVECTOR3 vLocalUp = D3DXVECTOR3(0, 1, 0);
@@ -74,7 +76,7 @@ void D3DCamera::updateMatrix()
 
 void D3DCamera::updateProjectMatrix()
 {
-	D3DXMatrixPerspectiveFovLH(&m_Projection, D3DX_PI / 4, (float)m_width/ (float)m_height, 0.01f, 100.0f);
+	D3DXMatrixPerspectiveFovLH(&m_Projection, D3DX_PI / 4, (float)m_width/ (float)m_height, m_zn, m_zf);
 }
 
 void D3DCamera::updateViewProjectMatrix()
