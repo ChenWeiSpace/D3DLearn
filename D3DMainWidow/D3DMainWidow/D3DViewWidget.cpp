@@ -52,40 +52,50 @@ void D3DViewWidget::mousePressEvent(QMouseEvent* event)
 
 void D3DViewWidget::keyPressEvent(QKeyEvent* event)
 {
-	//QWidget::keyPressEvent(event);
-	qDebug() << "keyPressEvent::" << event->key();
+	QWidget::keyPressEvent(event);
+	if (event->isAutoRepeat())
+	{
+		return;
+	}
 
 	if (event->key() == Qt::Key_Left || event->key() == Qt::Key_A)
 	{
 		//×ó
 		m_moveSatus = K_Left;
 		m_pressTime = m_current;
+		m_perCameraPos = m_envirPtr->getCamera()->getWorldPosition();
 	}
 	else if (event->key() == Qt::Key_Right || event->key() == Qt::Key_D)
 	{
 		//ÓÒ
 		m_moveSatus = K_Right;
 		m_pressTime = m_current;
+		m_perCameraPos = m_envirPtr->getCamera()->getWorldPosition();
 	}
 	else if (event->key() == Qt::Key_Up || event->key() == Qt::Key_W)
 	{
 		//Ç°
-		m_moveSatus = K_Back;
+		m_moveSatus = K_Fornt;
 		m_pressTime = m_current;
+		m_perCameraPos = m_envirPtr->getCamera()->getWorldPosition();
 	}
 	else if (event->key() == Qt::Key_Down || event->key() == Qt::Key_S)
 	{
 		//ºó
 		m_moveSatus = K_Back;
 		m_pressTime = m_current;
+		m_perCameraPos = m_envirPtr->getCamera()->getWorldPosition();
 	}
 	event->accept();
 }
 
 void D3DViewWidget::keyReleaseEvent(QKeyEvent* event)
 {
-	//QWidget::keyReleaseEvent(event);
-	qDebug() << "keyReleaseEvent::" << event->key();
+	QWidget::keyReleaseEvent(event);
+	if (event->isAutoRepeat())
+	{
+		return;
+	}
 
 	if (event->key() == Qt::Key_Left || event->key() == Qt::Key_A 
 		|| event->key() == Qt::Key_Right || event->key() == Qt::Key_D 
@@ -96,7 +106,6 @@ void D3DViewWidget::keyReleaseEvent(QKeyEvent* event)
 		if (m_moveSatus != K_None)
 		{
 			m_moveSatus = K_None;
-			//qDebug() << m_current - m_pressTime;
 		}
 	}
 	event->accept();
@@ -105,7 +114,37 @@ void D3DViewWidget::keyReleaseEvent(QKeyEvent* event)
 
 void D3DViewWidget::timerEvent(QTimerEvent* event)
 {
-	
+	if (m_moveSatus!= K_None)
+	{
+		int dir = 0;
+		D3DXVECTOR3 off(0, 0, 0);
+		switch (m_moveSatus)
+		{
+		case K_Right:
+		{
+			off = m_envirPtr->getCamera()->getRight();
+		}
+			break;
+		case K_Left:
+		{
+			off = -m_envirPtr->getCamera()->getRight();
+		}
+			break;
+		case K_Back:
+		{
+			off = -m_envirPtr->getCamera()->getHeading();
+		}
+			break;
+		case K_Fornt:
+		{
+			off = m_envirPtr->getCamera()->getHeading();
+		}
+			break;
+		}
+		m_perCameraPos += off *(m_current - m_pressTime)*0.001;
+		m_envirPtr->getCamera()->setWorldPosition(m_perCameraPos);
+	}
+
 	static std::uint64_t frameNumber = 0;
 	std::uint64_t val = m_time.elapsed();
 	if (m_current == 0)

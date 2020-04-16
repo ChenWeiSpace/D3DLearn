@@ -62,6 +62,10 @@ void D3DCamera::updateMatrix()
 	D3DXVec3TransformCoord(&vWorldUp, &vLocalUp, &mCameraRot);
 	D3DXVec3TransformCoord(&vWorldAhead, &vLocalAhead, &mCameraRot);
 
+	D3DXVec3TransformNormal(&m_xVector, &s_xAxis, &mCameraRot);
+	D3DXVec3TransformNormal(&m_yVector, &s_yAxis, &mCameraRot);
+	D3DXVec3TransformNormal(&m_zVector, &s_zAxis, &mCameraRot);
+
 	//vWorldUp += m_worldPos;
 	vWorldAhead += m_worldPos;
 	D3DXMatrixLookAtLH(&m_View, &m_worldPos, &vWorldAhead, &vWorldUp);

@@ -1,6 +1,6 @@
 #ifndef HyacinthUntity_H
 #define HyacinthUntity_H
-
+#include <d3dx9.h>
 struct EulerAngle
 {
 	EulerAngle() {
@@ -39,6 +39,9 @@ struct EulerAngle
 		return !operator==(that);
 	}
 };
+static  const 	D3DXVECTOR3 s_xAxis{ 1,0,0 };
+static  const 	D3DXVECTOR3 s_yAxis{ 0,1,0 };
+static  const 	D3DXVECTOR3 s_zAxis{ 0,0,1 };
 #endif // !HyacinthUntity_H
 
 

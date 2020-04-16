@@ -36,7 +36,9 @@ public:
 	inline EulerAngle getRotation() {
 		return m_rotation;
 	}
-
+	inline D3DXVECTOR3 getHeading() { return m_zVector; };//z
+	inline D3DXVECTOR3 getRight() { return m_xVector; };//x
+	inline D3DXVECTOR3 getUp() { return m_yVector; };//y
 
 private:
 	void setCameraParam(int width, int height,float zn = 0.01f,float zf = 100.0f);
@@ -55,6 +57,9 @@ private:
 	int m_height{ 0 };
 	float m_zn{ 0.1f };
 	float m_zf{ 100.0f };
+	D3DXVECTOR3 m_xVector{ 1,0,0 };
+	D3DXVECTOR3 m_yVector{ 0,1,0 };
+	D3DXVECTOR3 m_zVector{ 0,0,1 };
 };
 typedef std::shared_ptr<D3DCamera> D3DCameraPtr;
 #endif // D3DCamera_h__

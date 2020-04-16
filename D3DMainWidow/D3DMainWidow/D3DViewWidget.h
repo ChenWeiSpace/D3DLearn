@@ -4,6 +4,8 @@
 #include <QWidget>
 #include<QTime>
 #include <memory>
+
+#include <d3dx9.h>
 typedef std::shared_ptr<class D3DEnvironment> D3DEnvironmentPtr;
 
 enum CameraMoveStatus
@@ -40,6 +42,7 @@ private:
 	std::uint64_t m_current{ 0 };
 	QTime m_time;
 	std::uint64_t m_pressTime{ 0 };
+	D3DXVECTOR3 m_perCameraPos{0,0,0};
 };
 
 #endif // !D3DViewWidget_H
