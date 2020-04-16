@@ -131,7 +131,7 @@ void D3DEnvironment::buildDevice(int wHid, int width, int height)
 	m_width = width;
 	m_height = height;
 
-	m_camera->setCameraParam(width, height);
+	m_camera->setCameraParam(width, height,0.01,1000);
 }
 
 

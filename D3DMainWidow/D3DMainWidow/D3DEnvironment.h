@@ -39,6 +39,10 @@ public:
 	void frameMove(std::uint64_t frameNumber, std::uint64_t elapsed);
 	void resize(int width, int height);
 	void addVisualObject(AbstractVisualObjectPtr object,bool needInit = true);
+	inline D3DCameraPtr getCamera() {
+		return m_camera;
+	}
+
 private:
 	int m_width{0};
 	int m_height{0};

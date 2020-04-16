@@ -12,11 +12,6 @@ class D3DMainWidow : public QMainWindow
 public:
 	D3DMainWidow(QWidget *parent = Q_NULLPTR);
 	void init();
-	void timerEvent(QTimerEvent *event);
-protected:
-	virtual void resizeEvent(QResizeEvent *event);
 private:
 	Ui::D3DMainWidowClass ui;
-	QTime m_time;
-	std::uint64_t m_current{0};
 };

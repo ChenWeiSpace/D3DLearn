@@ -9,6 +9,12 @@ struct EulerAngle
 		roll = 0;
 	}
 
+	EulerAngle(float h, float p, float r) {
+		heading = h;
+		pitch = p;
+		roll = r;
+	}
+
 	union 
 	{
 		struct 

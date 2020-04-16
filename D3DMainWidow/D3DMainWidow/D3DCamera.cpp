@@ -34,6 +34,7 @@ void D3DCamera::setWorldPosition(D3DXVECTOR3 pos)
 {
 	if (memcmp(&m_worldPos, &pos, sizeof(XMVECTOR))!=0)
 	{
+		m_worldPos = pos;
 		updateMatrix();
 		updateViewProjectMatrix();
 	}
@@ -41,17 +42,12 @@ void D3DCamera::setWorldPosition(D3DXVECTOR3 pos)
 
 void D3DCamera::setRotation(EulerAngle eularAngle)
 {
-	if (m_rotation == eularAngle)
+	if (m_rotation != eularAngle)
 	{
 		m_rotation = eularAngle;
 		updateMatrix();
 		updateViewProjectMatrix();
 	}
-}
-
-EulerAngle D3DCamera::getRotation()
-{
-	return m_rotation;
 }
 
 void D3DCamera::updateMatrix()
@@ -66,8 +62,7 @@ void D3DCamera::updateMatrix()
 	D3DXVec3TransformCoord(&vWorldUp, &vLocalUp, &mCameraRot);
 	D3DXVec3TransformCoord(&vWorldAhead, &vLocalAhead, &mCameraRot);
 
-
-	vWorldUp += m_worldPos;
+	//vWorldUp += m_worldPos;
 	vWorldAhead += m_worldPos;
 	D3DXMatrixLookAtLH(&m_View, &m_worldPos, &vWorldAhead, &vWorldUp);
 
@@ -82,33 +77,4 @@ void D3DCamera::updateProjectMatrix()
 void D3DCamera::updateViewProjectMatrix()
 {
 	D3DXMatrixMultiply(&m_ViewProjection, &m_View, &m_Projection);
-}
-
-const D3DXMATRIX& D3DCamera::getWorldMatrix()
-{
-	// TODO: 在此处插入 return 语句
-	return m_World;
-}
-
-const D3DXMATRIX& D3DCamera::getViewMatrix()
-{
-	// TODO: 在此处插入 return 语句
-	return m_View;
-}
-
-const D3DXMATRIX& D3DCamera::getProjectionMatrix()
-{
-	// TODO: 在此处插入 return 语句
-	return m_Projection;
-}
-
-const D3DXMATRIX& D3DCamera::getViewProjectionMatrix()
-{
-	// TODO: 在此处插入 return 语句
-	return m_ViewProjection;
-}
-
-const D3DXVECTOR3 D3DCamera::getWorldPosition()
-{
-	return m_worldPos;
 }

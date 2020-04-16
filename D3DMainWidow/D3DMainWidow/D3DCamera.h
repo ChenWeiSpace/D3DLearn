@@ -14,15 +14,29 @@ public:
 	D3DCamera();
 	~D3DCamera();
 public:
-	const D3DXMATRIX& getWorldMatrix();
-	const D3DXMATRIX& getViewMatrix();
-	const D3DXMATRIX& getProjectionMatrix();
-	const D3DXMATRIX& getViewProjectionMatrix();
+	inline const D3DXMATRIX& getWorldMatrix() {
+		return m_World;
+	}
+	inline const D3DXMATRIX& getViewMatrix() {
+		return m_View;
+	}
+	inline const D3DXMATRIX& getProjectionMatrix() {
+		return m_Projection;
+	}
+	inline const D3DXMATRIX& getViewProjectionMatrix() {
+		return m_ViewProjection;
+	}
 
 	void setWorldPosition(D3DXVECTOR3 pos);
-	const D3DXVECTOR3 getWorldPosition();
+	inline const D3DXVECTOR3 getWorldPosition() {
+		return m_worldPos;
+	}
+
 	void setRotation(EulerAngle eularAngle);
-	EulerAngle getRotation();
+	inline EulerAngle getRotation() {
+		return m_rotation;
+	}
+
 
 private:
 	void setCameraParam(int width, int height,float zn = 0.01f,float zf = 100.0f);
