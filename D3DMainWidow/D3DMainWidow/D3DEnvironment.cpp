@@ -140,11 +140,23 @@ void D3DEnvironment::frameMove(std::uint64_t frameNumber, std::uint64_t elapsed)
 	float ClearColor[4] = { 0.0f, 0.125f, 0.3f, 1.0f }; // red,green,blue,alpha
 	g_pImmediateContext->ClearRenderTargetView(g_pRenderTargetView, ClearColor);
 	g_pImmediateContext->ClearDepthStencilView(g_pDepthStencilView, D3D11_CLEAR_DEPTH, 1, 0);
+
+	g_pImmediateContext->VSSetShader(NULL, NULL, 0);
+	g_pImmediateContext->VSSetConstantBuffers(0, 0, NULL);
+	g_pImmediateContext->PSSetShader(NULL, NULL, 0);
+	g_pImmediateContext->PSSetConstantBuffers(0, 0, NULL);
+	g_pImmediateContext->IASetInputLayout(NULL);
+	g_pImmediateContext->IASetVertexBuffers(0, 0, NULL, NULL, NULL);
+	g_pImmediateContext->IASetIndexBuffer(NULL, DXGI_FORMAT_R16_UINT, 0);
+	g_pImmediateContext->RSSetState(NULL);
+	g_pImmediateContext->OMSetBlendState(NULL, NULL, 0);
+	g_pImmediateContext->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_UNDEFINED);
+
 	for (auto visula: m_VisualObjects)
 	{
 		visula->frameMove(frameNumber, elapsed);
 	}
-	g_pSwapChain->Present(1, 0);
+	g_pSwapChain->Present(0, 0);
 }
 
 void D3DEnvironment::resize(int width, int height)

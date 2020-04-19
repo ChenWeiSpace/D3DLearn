@@ -100,6 +100,17 @@ void CubeObject::frameMove(std::uint64_t frameNumber, std::uint64_t elapsed)
 	g_pImmediateContext->VSSetConstantBuffers(0, 1, &g_pConstantBuffer);
 	g_pImmediateContext->PSSetShader(g_pPixelShader, NULL, 0);
 	g_pImmediateContext->PSSetConstantBuffers(0, 1, &g_pConstantBuffer);
+
+	// Set vertex buffer
+	UINT stride = sizeof(SimpleVertex);
+	UINT offset = 0;
+	g_pImmediateContext->IASetVertexBuffers(0, 1, &g_pVertexBuffer, &stride, &offset);
+	// Set index buffer
+	g_pImmediateContext->IASetIndexBuffer(g_pIndexBuffer, DXGI_FORMAT_R16_UINT, 0);
+	g_pImmediateContext->IASetInputLayout(g_pVertexLayout);
+	// Set primitive topology
+	g_pImmediateContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
 	g_pImmediateContext->DrawIndexed(36, 0, 0);
 
 	//
@@ -157,7 +168,7 @@ void CubeObject::inits(Context & con)
 		return;
 
 	// Set the input layout
-	con.g_pImmediateContext->IASetInputLayout(g_pVertexLayout);
+	//con.g_pImmediateContext->IASetInputLayout(g_pVertexLayout);
 
 
 	// Compile the pixel shader
@@ -243,7 +254,7 @@ void CubeObject::inits(Context & con)
 	// Set vertex buffer
 	UINT stride = sizeof(SimpleVertex);
 	UINT offset = 0;
-	con.g_pImmediateContext->IASetVertexBuffers(0, 1, &g_pVertexBuffer, &stride, &offset);
+	//con.g_pImmediateContext->IASetVertexBuffers(0, 1, &g_pVertexBuffer, &stride, &offset);
 
 	// Create index buffer
 	// Create vertex buffer
@@ -277,10 +288,10 @@ void CubeObject::inits(Context & con)
 		return;
 
 	// Set index buffer
-	con.g_pImmediateContext->IASetIndexBuffer(g_pIndexBuffer, DXGI_FORMAT_R16_UINT, 0);
+	//con.g_pImmediateContext->IASetIndexBuffer(g_pIndexBuffer, DXGI_FORMAT_R16_UINT, 0);
 
 	// Set primitive topology
-	con.g_pImmediateContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	//con.g_pImmediateContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	// Create the constant buffer
 	bd.Usage = D3D11_USAGE_DEFAULT;

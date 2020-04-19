@@ -29,6 +29,9 @@
     <Filter Include="Triangle">
       <UniqueIdentifier>{c38d0b64-f1fc-4590-8169-715a3a90f14c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Rectangle">
+      <UniqueIdentifier>{92604b68-b8b1-4e19-9950-cfd3306650a0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -57,6 +60,9 @@
     </ClCompile>
     <ClCompile Include="D3DViewWidget.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Rectangle\Rectangle.cpp">
+      <Filter>Rectangle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -96,6 +102,9 @@
     <ClInclude Include="HyacinthUntity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Rectangle\Rectangle.h">
+      <Filter>Rectangle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Triangle\Tutorial02.fx">
@@ -104,5 +113,10 @@
     <None Include="cube\Tutorial06.fx">
       <Filter>Cube</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Rectangle\drawRectangle.hlsl">
+      <Filter>Rectangle</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

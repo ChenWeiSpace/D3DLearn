@@ -2,6 +2,7 @@
 #include "D3DEnvironment.h"
 #include "cube/CubeObject.h"
 #include "Triangle/TriangleObject.h"
+#include "Rectangle/Rectangle.h"
 
 D3DEnvironmentPtr s_event;
 D3DMainWidow::D3DMainWidow(QWidget *parent)
@@ -19,6 +20,8 @@ void D3DMainWidow::init()
 	WId id = ui.centralWidget->winId();
 	event->buildDevice(id,width,height);
 	event->addVisualObject(std::make_shared<CubeObject>());
+	event->addVisualObject(std::make_shared<DrawRectangle>());
+
 	ui.centralWidget->startTimer(10);
 	s_event = event;
 	ui.centralWidget->getTime().start();

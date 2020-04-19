@@ -11,8 +11,13 @@ AbstractVisualObject::~AbstractVisualObject()
 {
 }
 
-HRESULT AbstractVisualObject::CompileShaderFromFile(const char* szFileName, LPCSTR szEntryPoint, LPCSTR szShaderModel, ID3DBlob** ppBlobOut)
+HRESULT AbstractVisualObject::CompileShaderFromFile(std::string szFileName, LPCSTR szEntryPoint, LPCSTR szShaderModel, ID3DBlob** ppBlobOut)
 {
+	if ( szFileName.size() >= 2 && szFileName[1]!=':' )
+	{
+		szFileName = getResouseDir() + '/' + szFileName;
+	}
+
 	HRESULT hr = S_OK;
 
 	DWORD dwShaderFlags = D3DCOMPILE_ENABLE_STRICTNESS;
@@ -25,7 +30,7 @@ HRESULT AbstractVisualObject::CompileShaderFromFile(const char* szFileName, LPCS
 #endif
 
 	ID3DBlob* pErrorBlob;
-	hr = D3DX11CompileFromFile(szFileName, NULL, NULL, szEntryPoint, szShaderModel,
+	hr = D3DX11CompileFromFile(szFileName.c_str(), NULL, NULL, szEntryPoint, szShaderModel,
 		dwShaderFlags, 0, NULL, ppBlobOut, &pErrorBlob, NULL);
 	if (FAILED(hr))
 	{

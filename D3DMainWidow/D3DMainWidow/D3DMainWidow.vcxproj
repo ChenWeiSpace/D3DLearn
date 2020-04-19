@@ -100,6 +100,7 @@
     <ClCompile Include="D3DViewWidget.cpp" />
     <ClCompile Include="HyacinthUntity.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Rectangle\Rectangle.cpp" />
     <ClCompile Include="Triangle\TriangleObject.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -118,6 +119,7 @@
     <ClInclude Include="D3DEnvironment.h" />
     <QtMoc Include="D3DViewWidget.h" />
     <ClInclude Include="HyacinthUntity.h" />
+    <ClInclude Include="Rectangle\Rectangle.h" />
     <ClInclude Include="Triangle\TriangleObject.h" />
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +129,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="cube\Tutorial06.fx">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Rectangle\drawRectangle.hlsl">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>

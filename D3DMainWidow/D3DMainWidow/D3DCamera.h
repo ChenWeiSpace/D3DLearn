@@ -51,7 +51,7 @@ private:
 	D3DXMATRIX                m_View;
 	D3DXMATRIX                m_Projection;
 	D3DXMATRIX                m_ViewProjection;
-	D3DXVECTOR3               m_worldPos{0,0,-30};
+	D3DXVECTOR3               m_worldPos{0,0,-10};
 	EulerAngle m_rotation;
 	int m_width{ 0 };
 	int m_height{ 0 };
