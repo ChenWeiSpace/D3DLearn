@@ -72,15 +72,26 @@ void DrawRectangle::inits(Context& con)
 	D3DXVECTOR3 pos[] = { D3DXVECTOR3(-1.0f,0.0,-1.0f),D3DXVECTOR3(-1.0f,0.0,1.0f) ,D3DXVECTOR3(1.0f,0.0,-1.0f) ,D3DXVECTOR3(1.0f,0.0,1.0f) };
 
 	CD3D11_RASTERIZER_DESC rasterizser(D3D11_DEFAULT);
+	rasterizser.DepthBiasClamp = 1.0f;
 	rasterizser.CullMode = D3D11_CULL_NONE;
+
 	hr = con.g_pd3dDevice->CreateRasterizerState(&rasterizser, &m_pRasterizerState);
 	if (FAILED(hr))
 		return;
 	CD3D11_BLEND_DESC blendDesc(D3D11_DEFAULT);
-	
+	blendDesc.RenderTarget[0].BlendEnable = true;
+	blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+	blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+	blendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+
 	hr = con.g_pd3dDevice->CreateBlendState(&blendDesc, &m_pBlendState);
 	if (FAILED(hr))
 		return;
+	CD3D11_DEPTH_STENCIL_DESC depDesc(D3D11_DEFAULT);
+// 	depDesc.DepthEnable = FALSE;
+// 	depDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+
+	con.g_pd3dDevice->CreateDepthStencilState(&depDesc, &m_depthStencilState);
 
 	D3D11_BUFFER_DESC bd;
 	ZeroMemory(&bd, sizeof(bd));
@@ -111,8 +122,11 @@ void DrawRectangle::frameMove(std::uint64_t frameNumber, std::uint64_t elapsed)
 {
 	ConstantBuffer_DrawRectangle cb1;
 	//D3DXMatrixRotationX(&g_World, D3DXToRadian(90));
-	D3DXMatrixScaling(&g_World,1,1,100);
-	D3DXMatrixTranspose(&cb1.mWorld,&g_World);
+	D3DXMatrixScaling(&g_World,1,1,1000);
+	D3DXMATRIX    tanslat;
+	D3DXMatrixTranslation(&tanslat, 0, 0, -30);
+	D3DXMatrixMultiplyTranspose(&cb1.mWorld, &g_World, &tanslat);
+	//D3DXMatrixTranspose(&cb1.mWorld,&g_World);
 
 	D3DXMATRIX g_View = (m_camera->getViewMatrix());;
 	D3DXMatrixTranspose(&cb1.mView, &g_View);
@@ -122,8 +136,18 @@ void DrawRectangle::frameMove(std::uint64_t frameNumber, std::uint64_t elapsed)
 	cb1.vOutputColor = D3DXVECTOR4(1.0, 0, 0, 1.0);
 	cb1.trans = D3DXVECTOR4(1.0, 0, 1.0,0.1);
 	
+	//ID3D11DepthStencilState* ppDepthStencilState = NULL;
+	//UINT pStencilRef = 0;
+	//D3D11_DEPTH_STENCIL_DESC pDesc;
+
+	//g_pImmediateContext->OMGetDepthStencilState(&ppDepthStencilState,&pStencilRef);
+	//if (ppDepthStencilState)
+	//{
+	//	ppDepthStencilState->GetDesc(&pDesc);
+	//}
 	g_pImmediateContext->UpdateSubresource(g_pConstantBuffer, 0, NULL, &cb1, 0, 0);
 
+	g_pImmediateContext->OMSetDepthStencilState(m_depthStencilState, 0);
 	g_pImmediateContext->VSSetShader(g_pVertexShader, NULL, 0);
 	g_pImmediateContext->VSSetConstantBuffers(0, 1, &g_pConstantBuffer);
 	g_pImmediateContext->PSSetShader(g_pPixelShader, NULL, 0);
@@ -134,7 +158,8 @@ void DrawRectangle::frameMove(std::uint64_t frameNumber, std::uint64_t elapsed)
 	g_pImmediateContext->IASetVertexBuffers(0, 1, &g_pVertexBuffer, &stride, &offset);
 	g_pImmediateContext->IASetInputLayout(g_pVertexLayout);
 	g_pImmediateContext->RSSetState(m_pRasterizerState);
-	//g_pImmediateContext->OMSetBlendState(m_pBlendState,NULL,0);
+	float blendStats[4] = { 1.0f,1.0f, 1.0f, 1.0f };
+	g_pImmediateContext->OMSetBlendState(m_pBlendState, blendStats, 0xffffffff);
 	// Set primitive topology
 	g_pImmediateContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 

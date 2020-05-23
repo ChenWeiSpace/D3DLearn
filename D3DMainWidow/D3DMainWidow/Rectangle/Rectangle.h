@@ -21,6 +21,8 @@ private:
 	ID3D11Buffer* g_pConstantBuffer{ NULL };
 	ID3D11RasterizerState* m_pRasterizerState{ NULL };
 	ID3D11BlendState* m_pBlendState{NULL};
+	ID3D11DepthStencilState* m_depthStencilState{ NULL };
+
 	D3DXMATRIX    g_World;
 };
 

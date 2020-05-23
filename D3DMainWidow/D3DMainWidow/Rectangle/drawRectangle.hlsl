@@ -49,8 +49,9 @@ PS_INPUT VS( VS_INPUT input )
 //--------------------------------------------------------------------------------------
 // Pixel Shader
 //--------------------------------------------------------------------------------------
-float4 PS( PS_INPUT input) : SV_Target
+float4 PS(PS_INPUT input) : SV_Target
 {
-    float4 finalColor = float4(input.Pos.z,0.0f,0.0f,input.Pos.z);
+    float val = saturate(input.Pos.z * input.Pos.w);
+    float4 finalColor = float4(0.5,0,0.0f, 0.3);
     return finalColor;
 }

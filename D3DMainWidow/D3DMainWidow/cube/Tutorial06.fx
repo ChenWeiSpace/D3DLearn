@@ -53,14 +53,14 @@ PS_INPUT VS( VS_INPUT input )
 //--------------------------------------------------------------------------------------
 float4 PS( PS_INPUT input) : SV_Target
 {
-    float4 finalColor = 0;
+    float4 finalColor = float4(0,0,0,0);
     
     //do NdotL lighting for 2 lights
     for(int i=0; i<2; i++)
     {
         finalColor += saturate( dot( (float3)vLightDir[i],input.Norm) * vLightColor[i] );
     }
-    finalColor.a = 1;
+    finalColor.a = 1.0;
     return finalColor;
 }
 

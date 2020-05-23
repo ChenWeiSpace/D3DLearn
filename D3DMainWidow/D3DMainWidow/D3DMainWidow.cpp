@@ -20,7 +20,7 @@ void D3DMainWidow::init()
 	WId id = ui.centralWidget->winId();
 	event->buildDevice(id,width,height);
 	event->addVisualObject(std::make_shared<CubeObject>());
-	event->addVisualObject(std::make_shared<DrawRectangle>());
+	//event->addVisualObject(std::make_shared<DrawRectangle>());
 
 	ui.centralWidget->startTimer(10);
 	s_event = event;

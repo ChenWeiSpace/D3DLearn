@@ -113,10 +113,8 @@
     <None Include="cube\Tutorial06.fx">
       <Filter>Cube</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="Rectangle\drawRectangle.hlsl">
+    <None Include="Rectangle\drawRectangle.hlsl">
       <Filter>Rectangle</Filter>
-    </FxCompile>
+    </None>
   </ItemGroup>
 </Project>

@@ -52,7 +52,6 @@ private:
 	IDXGISwapChain*         g_pSwapChain { NULL};
 	ID3D11RenderTargetView* g_pRenderTargetView { NULL};
 	ID3D11DepthStencilView* g_pDepthStencilView = {NULL};
-
 	std::vector<AbstractVisualObjectPtr> m_VisualObjects;
 	D3DCameraPtr m_camera;
 };

@@ -137,9 +137,9 @@ void D3DEnvironment::buildDevice(int wHid, int width, int height)
 
 void D3DEnvironment::frameMove(std::uint64_t frameNumber, std::uint64_t elapsed)
 {
-	float ClearColor[4] = { 0.0f, 0.125f, 0.3f, 1.0f }; // red,green,blue,alpha
+	float ClearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f }; // red,green,blue,alpha
 	g_pImmediateContext->ClearRenderTargetView(g_pRenderTargetView, ClearColor);
-	g_pImmediateContext->ClearDepthStencilView(g_pDepthStencilView, D3D11_CLEAR_DEPTH, 1, 0);
+	g_pImmediateContext->ClearDepthStencilView(g_pDepthStencilView, D3D11_CLEAR_DEPTH| D3D11_CLEAR_STENCIL, 1, 0);
 
 	g_pImmediateContext->VSSetShader(NULL, NULL, 0);
 	g_pImmediateContext->VSSetConstantBuffers(0, 0, NULL);
@@ -149,7 +149,9 @@ void D3DEnvironment::frameMove(std::uint64_t frameNumber, std::uint64_t elapsed)
 	g_pImmediateContext->IASetVertexBuffers(0, 0, NULL, NULL, NULL);
 	g_pImmediateContext->IASetIndexBuffer(NULL, DXGI_FORMAT_R16_UINT, 0);
 	g_pImmediateContext->RSSetState(NULL);
-	g_pImmediateContext->OMSetBlendState(NULL, NULL, 0);
+
+	float BlendFactor[4] = { 1.0f,1.0f,1.0f,1.0f };
+	g_pImmediateContext->OMSetBlendState(NULL, BlendFactor, 0xffffffff);
 	g_pImmediateContext->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_UNDEFINED);
 
 	for (auto visula: m_VisualObjects)
@@ -226,7 +228,7 @@ void D3DEnvironment::resize(int width, int height)
 
 							m_width = width;
 							m_height = height;
-							m_camera->setCameraParam(width, height);
+							m_camera->setCameraParam(width, height, m_camera->getZn(), m_camera->getZn());
 						}
 					}
 				}

@@ -39,7 +39,8 @@ public:
 	inline D3DXVECTOR3 getHeading() { return m_zVector; };//z
 	inline D3DXVECTOR3 getRight() { return m_xVector; };//x
 	inline D3DXVECTOR3 getUp() { return m_yVector; };//y
-
+	inline float getZn() { return m_zn; }
+	inline float getZf() { return m_zf; }
 private:
 	void setCameraParam(int width, int height,float zn = 0.01f,float zf = 100.0f);
 	void updateMatrix();
