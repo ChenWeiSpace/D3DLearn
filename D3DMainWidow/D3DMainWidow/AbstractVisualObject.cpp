@@ -1,5 +1,6 @@
 #include "AbstractVisualObject.h"
 #include <d3dcompiler.h>
+#include "HyacinthUntity.h"
 
 
 AbstractVisualObject::AbstractVisualObject()
@@ -53,4 +54,20 @@ void AbstractVisualObject::setDeviceAndContext(ID3D11Device* device, ID3D11Devic
 void AbstractVisualObject::setCamera(D3DCameraPtr camera)
 {
 	m_camera = camera;
+}
+
+StaticAbstractVisualObject::StaticAbstractVisualObject()
+{
+	D3DXMatrixIdentity(&g_World);
+}
+
+StaticAbstractVisualObject::~StaticAbstractVisualObject()
+{
+	SafeRelease(g_pVertexShader);
+	SafeRelease(g_pVertexLayout);
+	SafeRelease(g_pVertexBuffer);
+
+	SafeRelease(g_pIndexBuffer);
+	SafeRelease(g_pConstantBuffer);
+	SafeRelease(g_pPixelShader);
 }

@@ -11,23 +11,7 @@ struct ID3D11DepthStencilView;
 typedef std::shared_ptr<class AbstractVisualObject> AbstractVisualObjectPtr;
 typedef std::shared_ptr<class D3DCamera> D3DCameraPtr;
 
-template<typename T>
-inline void SafeRelease(T* p)
-{
-	if (0 != p)
-	{
-		p->Release();
-	}
-}
 
-template<typename T>
-inline void SafeAddRef(T* p)
-{
-	if (0 != p)
-	{
-		p->AddRef();
-	}
-}
 
 class D3DEnvironment : public std::enable_shared_from_this<D3DEnvironment>
 {

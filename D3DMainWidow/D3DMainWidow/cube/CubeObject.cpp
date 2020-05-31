@@ -4,6 +4,7 @@
 #include <d3dcompiler.h>
 #include <xnamath.h>
 #include "../D3DCamera.h"
+#include "../GlobalInstance.h"
 
 struct SimpleVertex
 {
@@ -34,6 +35,8 @@ CubeObject::CubeObject()
 CubeObject::~CubeObject()
 {
 }
+
+//REGIST_VISUALOBJCT(CubeObject);
 
 void CubeObject::frameMove(std::uint64_t frameNumber, std::uint64_t elapsed)
 {

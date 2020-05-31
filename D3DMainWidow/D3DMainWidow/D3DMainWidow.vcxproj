@@ -98,9 +98,11 @@
     <ClCompile Include="D3DEnvironment.cpp" />
     <ClCompile Include="D3DMainWidow.cpp" />
     <ClCompile Include="D3DViewWidget.cpp" />
+    <ClCompile Include="GlobalInstance.cpp" />
     <ClCompile Include="HyacinthUntity.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Rectangle\Rectangle.cpp" />
+    <ClCompile Include="Sphere\SphereObject.cpp" />
     <ClCompile Include="Triangle\TriangleObject.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -118,8 +120,10 @@
     <ClInclude Include="D3DCamera.h" />
     <ClInclude Include="D3DEnvironment.h" />
     <QtMoc Include="D3DViewWidget.h" />
+    <ClInclude Include="GlobalInstance.h" />
     <ClInclude Include="HyacinthUntity.h" />
     <ClInclude Include="Rectangle\Rectangle.h" />
+    <ClInclude Include="Sphere\SphereObject.h" />
     <ClInclude Include="Triangle\TriangleObject.h" />
   </ItemGroup>
   <ItemGroup>
@@ -134,6 +138,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Rectangle\drawRectangle.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Sphere\SphereObject.fx">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>

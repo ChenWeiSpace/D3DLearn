@@ -32,6 +32,9 @@
     <Filter Include="Rectangle">
       <UniqueIdentifier>{92604b68-b8b1-4e19-9950-cfd3306650a0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sphere">
+      <UniqueIdentifier>{c2064531-d8a7-4918-8446-3254f1e71478}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -63,6 +66,12 @@
     </ClCompile>
     <ClCompile Include="Rectangle\Rectangle.cpp">
       <Filter>Rectangle</Filter>
+    </ClCompile>
+    <ClCompile Include="Sphere\SphereObject.cpp">
+      <Filter>Sphere</Filter>
+    </ClCompile>
+    <ClCompile Include="GlobalInstance.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -105,6 +114,12 @@
     <ClInclude Include="Rectangle\Rectangle.h">
       <Filter>Rectangle</Filter>
     </ClInclude>
+    <ClInclude Include="Sphere\SphereObject.h">
+      <Filter>Sphere</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalInstance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Triangle\Tutorial02.fx">
@@ -115,6 +130,9 @@
     </None>
     <None Include="Rectangle\drawRectangle.hlsl">
       <Filter>Rectangle</Filter>
+    </None>
+    <None Include="Sphere\SphereObject.fx">
+      <Filter>Sphere</Filter>
     </None>
   </ItemGroup>
 </Project>

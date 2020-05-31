@@ -22,6 +22,22 @@ struct Context
 	float height{0};
 };
 
+struct Vetrtex
+{
+	XMFLOAT3 pos;
+};
+
+struct Vetrtex_pos_nor : public Vetrtex
+{
+	XMFLOAT3 nor;
+};
+
+struct Vetrtex_pos_nor_tex :public Vetrtex_pos_nor
+{
+	XMFLOAT2 tex;
+};
+
+
 std::string getResouseDir();
 class AbstractVisualObject : public std::enable_shared_from_this<AbstractVisualObject>
 {
@@ -40,4 +56,36 @@ protected:
 	D3DCameraPtr m_camera;
 };
 typedef std::shared_ptr<AbstractVisualObject> AbstractVisualObjectPtr;
+
+struct VertexP_S_T
+{
+	VertexP_S_T()
+	{
+		Pos = D3DXVECTOR3(0, 0, 0);
+		Nor = D3DXVECTOR3(0, 0, 0);
+		Tex = D3DXVECTOR2(0, 0);
+	}
+	D3DXVECTOR3 Pos;
+	D3DXVECTOR3 Nor;
+	D3DXVECTOR2 Tex;
+};
+
+class StaticAbstractVisualObject : public AbstractVisualObject
+{
+public:
+	StaticAbstractVisualObject();
+	~StaticAbstractVisualObject();
+protected:
+	ID3D11VertexShader* g_pVertexShader{ NULL };
+	ID3D11InputLayout* g_pVertexLayout{ NULL };
+	ID3D11Buffer* g_pVertexBuffer{ NULL };
+
+	ID3D11Buffer* g_pIndexBuffer{ NULL };
+	ID3D11Buffer* g_pConstantBuffer{ NULL };
+	ID3D11PixelShader* g_pPixelShader{ NULL };
+	ID3D11RasterizerState* m_pRasterizerState{ NULL };
+
+	D3DXMATRIX                g_World;
+};
+
 #endif // AbstractVisualObject_h__
