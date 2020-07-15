@@ -54,7 +54,9 @@ PS_INPUT VS( VS_INPUT input )
 //--------------------------------------------------------------------------------------
 float4 PS( PS_INPUT input) : SV_Target
 {
-    return vLightColor;
+	 float4 finalColor = float4(0.2f, 0.2f, 0.2f, 1.0f);
+	 finalColor += saturate(dot(-(float3)vLightDir, input.Norm) * vLightColor);
+    return finalColor;
 }
 
 

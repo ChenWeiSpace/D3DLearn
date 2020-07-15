@@ -61,10 +61,10 @@ void SphereObject::inits(Context& con)
 		return;
 
 
-	int x_size = 5;
-	int y_size = 5;
+	int x_size = 180;
+	int y_size = 10;
 	float x_scall = 1.0f;
-	float y_scall = 1.0f;
+	float y_scall = 0.3f;
 
 	std::vector<VertexP_S_T> vertices;
 	vertices.reserve(x_size*y_size);
@@ -74,13 +74,19 @@ void SphereObject::inits(Context& con)
 		for (size_t i = 0; i < x_size; i++)
 		{
 			VertexP_S_T pos;
-			pos.Pos = D3DXVECTOR3(i* x_scall,j * y_scall,0);
+			pos.Pos = D3DXVECTOR3( cos(D3DX_PI * 2 / x_size * i), /*i* x_scall,*/j * y_scall, sin(D3DX_PI * 2 / x_size * i));
 			vertices.push_back(pos);
 		}
+
+		VertexP_S_T pos;
+		pos.Pos = D3DXVECTOR3(1, /*i* x_scall,*/j * y_scall, 0);
+		vertices.push_back(pos);
 	}
+	
+
 	UniformGridPlane gridPlane;
 	gridPlane.setPosList(vertices);
-	gridPlane.setSize(Size(x_size, y_size));
+	gridPlane.setSize(Size(x_size+1, y_size));
 	std::vector<unsigned int> indexList;
 	gridPlane.buildIndexList(indexList);
 	m_indexSize = indexList.size();
@@ -122,7 +128,7 @@ void SphereObject::inits(Context& con)
 	CD3D11_RASTERIZER_DESC rasterizser(D3D11_DEFAULT);
 	rasterizser.DepthBiasClamp = 1.0f;
 	rasterizser.CullMode = D3D11_CULL_BACK;
-	rasterizser.FillMode = D3D11_FILL_WIREFRAME;
+	rasterizser.FillMode = D3D11_FILL_SOLID;
 
 	hr = con.g_pd3dDevice->CreateRasterizerState(&rasterizser, &m_pRasterizerState);
 }
@@ -135,7 +141,9 @@ void SphereObject::frameMove(std::uint64_t frameNumber, std::uint64_t elapsed)
 	//g_View = *(XMMATRIX*)&(m_camera->getViewMatrix());;
 	D3DXMatrixTranspose(&cb1.mView,&(m_camera->getViewMatrix()));
 	D3DXMatrixTranspose(&cb1.mProjection,&(m_camera->getProjectionMatrix()));
+	
 	cb1.vLightColor = XMFLOAT4(0.3f, 0.3f, 0, 1.0f);
+	cb1.vLightDir = XMFLOAT4(1.0f, -1.0f, 1.0f, 1.0f);
 
 	//g_Projection = *(XMMATRIX*)&(m_camera->getProjectionMatrix());
 	//cb1.mProjection = XMMatrixTranspose(g_Projection);
