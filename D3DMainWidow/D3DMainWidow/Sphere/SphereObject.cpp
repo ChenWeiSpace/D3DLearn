@@ -75,6 +75,10 @@ void SphereObject::inits(Context& con)
 		{
 			VertexP_S_T pos;
 			pos.Pos = D3DXVECTOR3( cos(D3DX_PI * 2 / x_size * i), /*i* x_scall,*/j * y_scall, sin(D3DX_PI * 2 / x_size * i));
+			D3DXVECTOR3 nor = D3DXVECTOR3(cos(D3DX_PI * 2 / x_size * i), 0, sin(D3DX_PI * 2 / x_size * i));;
+
+			//pos.Nor = D3DXVECTOR3(cos(D3DX_PI * 2 / x_size * i), 0, sin(D3DX_PI * 2 / x_size * i));
+			D3DXVec3Normalize(&pos.Nor, &nor);
 			vertices.push_back(pos);
 		}
 
@@ -91,6 +95,19 @@ void SphereObject::inits(Context& con)
 	gridPlane.buildIndexList(indexList);
 	m_indexSize = indexList.size();
 	vertices = gridPlane.getPosList();
+
+	{
+		int x_size = 100;
+		int y_size = 100;
+		for (size_t i = 0; i < y_size; i++)
+		{
+			for (size_t j = 0; j < x_size; j++)
+			{
+
+			}
+		}
+	}
+
 
 	D3D11_BUFFER_DESC bd;
 	ZeroMemory(&bd, sizeof(bd));
@@ -240,7 +257,7 @@ void UniformGridPlane::buildIndexList(std::vector<unsigned int> & indexList)
 			D3DXVec3Normalize(&d2, &d2);
 			D3DXVECTOR3 nor;
 			D3DXVec3Cross(&nor, &d1, &d2);
-			posVector[a1].Nor = nor;
+			//posVector[a1].Nor = nor;
 		}
 	}
 }
