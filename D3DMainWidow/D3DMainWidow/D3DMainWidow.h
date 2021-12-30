@@ -13,5 +13,5 @@ public:
 	D3DMainWidow(QWidget *parent = Q_NULLPTR);
 	void init();
 private:
-	Ui::D3DMainWidowClass ui;
+	Ui::D3DMainWidowClass ui;   
 };
